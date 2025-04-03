@@ -486,6 +486,11 @@
             const ua = navigator.userAgent.toLowerCase();
             isWeChat = ua.indexOf('micromessenger') !== -1;
         }
+
+        // 获取随机口号
+        function getRandomSlogan() {
+            return basketballSlogans[Math.floor(Math.random() * basketballSlogans.length)];
+        }
         
         // 初始化日期选择器
         function initDateTime() {
