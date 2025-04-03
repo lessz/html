@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万象天成篮球报名</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 1rem;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .basketball-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .content {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .input-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .input-group {
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .player-input-container {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .player-name-input {
+            flex: 1;
+        }
+        
+        .avatar-select-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #ddd;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .avatar-select-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-select-btn .random-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            font-size: 0.6rem;
+            padding: 2px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            transition: border 0.3s;
+        }
+        
+        input:disabled {
+            background-color: #f5f5f5;
+            color: #777;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        
+        button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #5a6268;
+        }
+        
+        .avatar-selection {
+            display: none;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        
+        .avatar-selection.show {
+            display: flex;
+        }
+        
+        .avatar-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .avatar-option:hover {
+            transform: scale(1.05);
+        }
+        
+        .avatar-option.selected {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+        }
+        
+        .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .player-list {
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+        
+        .player-list h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .player-count {
+            background: var(--secondary);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .players-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .player-badge {
+            width: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #ddd;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .player-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .player-avatar .remove-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.6rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .player-avatar:hover {
+            transform: scale(1.1);
+            border-color: var(--secondary);
+        }
+        
+        .player-avatar:hover .remove-btn {
+            opacity: 1;
+        }
+        
+        .player-name {
+            font-size: 0.8rem;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        
+        .status-box {
+            margin-top: 2rem;
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .status-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 0;
+        }
+        
+        .status-danger {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .status-success {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .status-icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+        
+        .history-section {
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+        
+        .history-section h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 6px;
+            width: 2px;
+            background: var(--secondary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: -20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary);
+            border: 2px solid white;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .timeline-content {
+            background: #f8f9fa;
+            padding: 0.8rem;
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+        }
+        
+        .timeline-count {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .team-section {
+            margin-top: 1.5rem;
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+        }
+        
+        .team-section h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .teams-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .team {
+            flex: 1;
+            min-width: 200px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .team-name {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .team-count {
+            background: var(--secondary);
+            color: white;
+            padding: 0.1rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+        }
+        
+        .team-players {
+            list-style: none;
+        }
+        
+        .team-player {
+            padding: 0.3rem 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .team-player-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+        
+        .team-player-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .team-player-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .team-player-slogan {
+            font-size: 0.7rem;
+            color: #666;
+            font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .team-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+        
+        .date-selector {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+        
+        .current-date {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header p {
+                font-size: 0.8rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .input-row {
+                flex-direction: column;
+            }
+            
+            .input-group {
+                width: 100%;
+            }
+            
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .avatar-option {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .teams-container {
+                flex-direction: column;
+            }
+            
+            .team {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>石家庄万象天成篮球报名</h1>
+            <p>组队打球，快乐篮球</p>
+            <div class="basketball-icon">🏀</div>
+        </div>
+        
+        <div class="content">
+            <div class="date-selector">
+                <label for="gameDate">选择打球日期</label>
+                <input type="date" id="gameDate">
+                <div class="current-date" id="currentDateDisplay">当前选择: 未选择</div>
+            </div>
+            
+            <div class="form-group">
+                <label>添加球员</label>
+                <div class="player-input-container">
+                    <input type="text" id="playerName" placeholder="输入球员姓名" class="player-name-input">
+                    <div class="avatar-select-btn" id="avatarSelectBtn">
+                        <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/893.png" alt="随机">
+                        <div class="random-label">随机</div>
+                    </div>
+                    <button id="addPlayer">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                
+                <div class="avatar-selection" id="avatarSelection">
+                    <!-- 头像选项将通过JS动态添加 -->
+                </div>
+            </div>
+            
+            <div class="player-list">
+                <h3>
+                    <i class="fas fa-users"></i>
+                    <span>当前球员名单</span>
+                    <span class="player-count" id="playerCount">0人</span>
+                </h3>
+                
+                <div class="players-list" id="playersList">
+                    <!-- 球员徽章将通过JS动态添加 -->
+                </div>
+            </div>
+            
+            <div class="status-box status-danger" id="statusBox">
+                <span class="status-icon">😞</span>
+                <span>Game Over，只能投篮了 (最少需要4人)</span>
+            </div>
+            
+            <div class="team-section" id="teamSection" style="display: none;">
+                <h3>
+                    <i class="fas fa-users"></i>
+                    <span>组队情况</span>
+                </h3>
+                <div class="team-actions">
+                    <button id="randomTeamBtn">
+                        <i class="fas fa-random"></i>
+                        <span>随机组队</span>
+                    </button>
+                    <button id="orderTeamBtn" class="secondary">
+                        <i class="fas fa-sort-amount-down"></i>
+                        <span>顺序组队</span>
+                    </button>
+                </div>
+                <div class="teams-container" id="teamsContainer">
+                    <!-- 队伍将通过JS动态添加 -->
+                </div>
+            </div>
+            
+            <div class="history-section">
+                <h3>
+                    <i class="fas fa-history"></i>
+                    <span>历史统计</span>
+                </h3>
+                <div class="timeline" id="historyTimeline">
+                    <!-- 时间轴内容将通过JS动态添加 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // NBA球星头像库
+        const nbaPlayers = [
+            { id: 'jordan', name: '迈克尔·乔丹', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/893.png' },
+            { id: 'kobe', name: '科比·布莱恩特', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/977.png' },
+            { id: 'iverson', name: '阿伦·艾弗森', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/977.png' },
+            { id: 'oneal', name: '沙奎尔·奥尼尔', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/406.png' },
+            { id: 'durant', name: '凯文·杜兰特', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/201142.png' },
+            { id: 'james', name: '勒布朗·詹姆斯', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png' },
+            { id: 'curry', name: '斯蒂芬·库里', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/201939.png' },
+            { id: 'antetokounmpo', name: '扬尼斯·阿德托昆博', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/203999.png' },
+            { id: 'irving', name: '凯里·欧文', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/202691.png' },
+            { id: 'jokic', name: '尼古拉·约基奇', img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/203507.png' }
+        ];
+        
+        // 篮球口号库
+        const basketballSlogans = [
+            "篮球场上见真章！",
+            "无兄弟，不篮球！",
+            "我的地盘我做主！",
+            "球进不进无所谓，姿势一定要帅！",
+            "三分线外，我的天下！",
+            "防守赢得冠军！",
+            "篮球是五个人的运动！",
+            "突破极限，超越自我！",
+            "篮球场上没有不可能！",
+            "用篮球说话！",
+            "篮球就是生命！",
+            "输赢不重要，快乐最重要！",
+            "篮球场上，我是王者！",
+            "团队第一，个人第二！",
+            "篮球是我的信仰！"
+        ];
+        
+        const players = [];
+        const historyRecords = [];
+        const playerNameInput = document.getElementById('playerName');
+        const gameDateInput = document.getElementById('gameDate');
+        const currentDateDisplay = document.getElementById('currentDateDisplay');
+        const addPlayerBtn = document.getElementById('addPlayer');
+        const avatarSelectBtn = document.getElementById('avatarSelectBtn');
+        const avatarSelection = document.getElementById('avatarSelection');
+        const playersList = document.getElementById('playersList');
+        const playerCount = document.getElementById('playerCount');
+        const statusBox = document.getElementById('statusBox');
+        const historyTimeline = document.getElementById('historyTimeline');
+        const teamSection = document.getElementById('teamSection');
+        const teamsContainer = document.getElementById('teamsContainer');
+        const randomTeamBtn = document.getElementById('randomTeamBtn');
+        const orderTeamBtn = document.getElementById('orderTeamBtn');
+        
+        let selectedAvatar = 'random';
+        let currentSessionDate = null;
+        let dateLocked = false;
+
+        // 初始化日期选择器
+        function initDateTime() {
+            // 设置最小日期为今天
+            const today = new Date().toISOString().split('T')[0];
+            gameDateInput.value = today;
+            gameDateInput.min = today;
+            
+            // 设置默认选择
+            currentSessionDate = today;
+            updateDateDisplay();
+        }
+        
+        // 更新日期显示
+        function updateDateDisplay() {
+            if (currentSessionDate) {
+                const date = new Date(currentSessionDate);
+                currentDateDisplay.textContent = `当前选择: ${formatDate(date)}`;
+            } else {
+                currentDateDisplay.textContent = "当前选择: 未选择";
+            }
+        }
+        
+        // 格式化日期
+        function formatDate(date) {
+            return date.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+        }
+        
+        function initAvatarSelection() {
+            // 添加随机选择选项
+            const randomOption = document.createElement('div');
+            randomOption.className = 'avatar-option selected';
+            randomOption.dataset.avatar = 'random';
+            randomOption.innerHTML = `
+                <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/893.png" alt="随机">
+                <div class="random-label">随机</div>
+            `;
+            randomOption.addEventListener('click', () => selectAvatar('random'));
+            avatarSelection.appendChild(randomOption);
+            
+            // 添加具体球星选项
+            nbaPlayers.forEach(player => {
+                const option = document.createElement('div');
+                option.className = 'avatar-option';
+                option.dataset.avatar = player.id;
+                option.innerHTML = `
+                    <img src="${player.img}" alt="${player.name}">
+                `;
+                option.addEventListener('click', () => selectAvatar(player.id, player.img));
+                avatarSelection.appendChild(option);
+            });
+        }
+        
+        function selectAvatar(avatarId, avatarUrl = null) {
+            selectedAvatar = avatarId === 'random' ? 'random' : avatarId;
+            
+            // 更新UI选中状态
+            document.querySelectorAll('.avatar-option').forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.avatar === avatarId) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // 更新选择按钮显示
+            if (avatarId === 'random') {
+                avatarSelectBtn.innerHTML = `
+                    <img src="https://cdn.nba.com/headshots/nba/latest/1040x760/893.png" alt="随机">
+                    <div class="random-label">随机</div>
+                `;
+            } else {
+                const player = nbaPlayers.find(p => p.id === avatarId);
+                if (player) {
+                    avatarSelectBtn.innerHTML = `
+                        <img src="${player.img}" alt="头像">
+                    `;
+                }
+            }
+            
+            // 隐藏选择面板
+            avatarSelection.classList.remove('show');
+        }
+        
+        function getRandomAvatar() {
+            const randomPlayer = nbaPlayers[Math.floor(Math.random() * nbaPlayers.length)];
+            return randomPlayer.img;
+        }
+        
+        function getRandomSlogan() {
+            return basketballSlogans[Math.floor(Math.random() * basketballSlogans.length)];
+        }
+        
+        // 按日期分组球员
+        function groupPlayersByDate() {
+            const grouped = {};
+            
+            players.forEach(player => {
+                if (!grouped[player.date]) {
+                    grouped[player.date] = [];
+                }
+                grouped[player.date].push(player);
+            });
+            
+            return grouped;
+        }
+        
+        // 随机组队
+        function createRandomTeams(players) {
+            const shuffled = [...players].sort(() => 0.5 - Math.random());
+            return createTeams(shuffled);
+        }
+        
+        // 顺序组队
+        function createOrderedTeams(players) {
+            return createTeams([...players]);
+        }
+        
+        // 创建队伍 (4人一队)
+        function createTeams(players) {
+            const teams = [];
+            const teamCount = Math.ceil(players.length / 4);
+            
+            for (let i = 0; i < teamCount; i++) {
+                const startIdx = i * 4;
+                const endIdx = startIdx + 4;
+                teams.push(players.slice(startIdx, endIdx));
+            }
+            
+            return teams;
+        }
+        
+        // 更新队伍显示
+        function updateTeams(teams) {
+            teamsContainer.innerHTML = '';
+            
+            teams.forEach((team, index) => {
+                const teamElement = document.createElement('div');
+                teamElement.className = 'team';
+                teamElement.innerHTML = `
+                    <div class="team-header">
+                        <div class="team-name">队伍 ${index + 1}</div>
+                        <div class="team-count">${team.length}人</div>
+                    </div>
+                    <ul class="team-players">
+                        ${team.map(player => `
+                            <li class="team-player">
+                                <div class="team-player-avatar" style="background-image: url('${player.avatar}')"></div>
+                                <div class="team-player-info">
+                                    <div class="team-player-name">${player.name}</div>
+                                    <div class="team-player-slogan">${player.slogan}</div>
+                                </div>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                teamsContainer.appendChild(teamElement);
+            });
+        }
+
+        function updatePlayerList() {
+            playersList.innerHTML = '';
+            
+            // 只显示当前选择的日期的球员
+            const currentDatePlayers = players.filter(player => player.date === currentSessionDate);
+            
+            currentDatePlayers.forEach((player) => {
+                const playerBadge = document.createElement('div');
+                playerBadge.className = 'player-badge';
+                playerBadge.innerHTML = `
+                    <div class="player-avatar">
+                        <img src="${player.avatar}" alt="${player.name}">
+                        <button class="remove-btn" onclick="removePlayer('${player.id}')">×</button>
+                    </div>
+                    <div class="player-name">${player.name}</div>
+                `;
+                playersList.appendChild(playerBadge);
+            });
+            
+            playerCount.textContent = `${currentDatePlayers.length}人`;
+            
+            // 更新状态和组队区域
+            if (currentDatePlayers.length >= 4) {
+                statusBox.className = 'status-box status-success';
+                statusBox.innerHTML = `
+                    <span class="status-icon">🏀</span>
+                    <span>已凑齐 ${currentDatePlayers.length} 人，可以开打啦！</span>
+                `;
+                teamSection.style.display = 'block';
+                
+                // 默认随机组队
+                const teams = createRandomTeams(currentDatePlayers);
+                updateTeams(teams);
+            } else {
+                statusBox.className = 'status-box status-danger';
+                statusBox.innerHTML = `
+                    <span class="status-icon">😞</span>
+                    <span>Game Over，只能投篮了 (还差 ${4 - currentDatePlayers.length} 人)</span>
+                `;
+                teamSection.style.display = 'none';
+            }
+        }
+        
+        function updateHistoryTimeline() {
+            historyTimeline.innerHTML = '';
+            
+            const groupedByDate = groupPlayersByDate();
+            const dates = Object.keys(groupedByDate).sort().reverse(); // 按日期降序
+            
+            if (dates.length === 0) {
+                historyTimeline.innerHTML = '<p style="text-align: center; color: #666;">暂无历史记录</p>';
+                return;
+            }
+            
+            dates.forEach(dateStr => {
+                const datePlayers = groupedByDate[dateStr];
+                const date = new Date(dateStr + 'T00:00:00');
+                
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'timeline-item';
+                
+                timelineItem.innerHTML = `
+                    <div class="timeline-date">${formatDate(date)}</div>
+                    <div class="timeline-content">
+                        <div>总报名人数: <span class="timeline-count">${datePlayers.length}人</span></div>
+                    </div>
+                `;
+                historyTimeline.appendChild(timelineItem);
+            });
+        }
+
+        function addPlayer() {
+            const name = playerNameInput.value.trim();
+            
+            if (!name) {
+                alert('请输入球员姓名');
+                return;
+            }
+            
+            if (!currentSessionDate) {
+                alert('请先选择打球日期');
+                return;
+            }
+            
+            let avatar;
+            if (selectedAvatar === 'random') {
+                avatar = getRandomAvatar();
+            } else {
+                const player = nbaPlayers.find(p => p.id === selectedAvatar);
+                avatar = player ? player.img : getRandomAvatar();
+            }
+            
+            const slogan = getRandomSlogan();
+            const playerId = Date.now().toString(); // 生成唯一ID
+            
+            players.push({
+                id: playerId,
+                name: name,
+                avatar: avatar,
+                slogan: slogan,
+                date: currentSessionDate
+            });
+            
+            playerNameInput.value = '';
+            
+            // 锁定日期
+            if (!dateLocked) {
+                dateLocked = true;
+                gameDateInput.disabled = true;
+            }
+            
+            updatePlayerList();
+            updateHistoryTimeline();
+        }
+
+        function removePlayer(playerId) {
+            const index = players.findIndex(p => p.id === playerId);
+            if (index !== -1) {
+                players.splice(index, 1);
+                
+                // 如果当前日期没有球员了，解锁日期
+                const currentDatePlayers = players.filter(p => p.date === currentSessionDate);
+                if (currentDatePlayers.length === 0) {
+                    dateLocked = false;
+                    gameDateInput.disabled = false;
+                }
+                
+                updatePlayerList();
+                updateHistoryTimeline();
+            }
+        }
+
+        // 初始化
+        initDateTime();
+        initAvatarSelection();
+        updatePlayerList();
+        updateHistoryTimeline();
+        
+        // 事件监听
+        addPlayerBtn.addEventListener('click', addPlayer);
+        playerNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addPlayer();
+            }
+        });
+        
+        gameDateInput.addEventListener('change', (e) => {
+            if (!dateLocked) {
+                currentSessionDate = e.target.value;
+                updateDateDisplay();
+                updatePlayerList();
+            }
+        });
+        
+        randomTeamBtn.addEventListener('click', () => {
+            const currentDatePlayers = players.filter(player => player.date === currentSessionDate);
+            const teams = createRandomTeams(currentDatePlayers);
+            updateTeams(teams);
+        });
+        
+        orderTeamBtn.addEventListener('click', () => {
+            const currentDatePlayers = players.filter(player => player.date === currentSessionDate);
+            const teams = createOrderedTeams(currentDatePlayers);
+            updateTeams(teams);
+        });
+        
+        avatarSelectBtn.addEventListener('click', () => {
+            avatarSelection.classList.toggle('show');
+        });
+        
+        // 点击其他地方关闭头像选择面板
+        document.addEventListener('click', (e) => {
+            if (!avatarSelectBtn.contains(e.target) && !avatarSelection.contains(e.target)) {
+                avatarSelection.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
