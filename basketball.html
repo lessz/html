@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万象天成篮球报名</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 保留之前的所有样式，只修改以下部分 */
+        
+        .players-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .player-badge {
+            width: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #ddd;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .player-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .player-avatar .remove-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.6rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .player-avatar:hover {
+            transform: scale(1.1);
+            border-color: var(--secondary);
+        }
+        
+        .player-avatar:hover .remove-btn {
+            opacity: 1;
+        }
+        
+        .player-name {
+            font-size: 0.8rem;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 保留之前的HTML结构，只修改playersList部分的渲染代码 -->
+
+    <script>
+        // 更新updatePlayerList函数
+        function updatePlayerList() {
+            playersList.innerHTML = '';
+            
+            // 只显示当前选择的日期的球员
+            const currentDatePlayers = players.filter(player => player.date === currentSessionDate);
+            
+            currentDatePlayers.forEach((player) => {
+                const playerBadge = document.createElement('div');
+                playerBadge.className = 'player-badge';
+                playerBadge.innerHTML = `
+                    <div class="player-avatar">
+                        <img src="${player.avatar}" alt="${player.name}">
+                        <button class="remove-btn" onclick="removePlayer('${player.id}')">×</button>
+                    </div>
+                    <div class="player-name">${player.name}</div>
+                `;
+                playersList.appendChild(playerBadge);
+            });
+            
+            playerCount.textContent = `${currentDatePlayers.length}人`;
+            
+            // 更新状态和组队区域
+            if (currentDatePlayers.length >= 4) {
+                statusBox.className = 'status-box status-success';
+                statusBox.innerHTML = `
+                    <span class="status-icon">🏀</span>
+                    <span>已凑齐 ${currentDatePlayers.length} 人，可以开打啦！</span>
+                `;
+                teamSection.style.display = 'block';
+                
+                // 默认随机组队
+                const teams = createRandomTeams(currentDatePlayers);
+                updateTeams(teams);
+            } else {
+                statusBox.className = 'status-box status-danger';
+                statusBox.innerHTML = `
+                    <span class="status-icon">😞</span>
+                    <span>Game Over，只能投篮了 (还差 ${4 - currentDatePlayers.length} 人)</span>
+                `;
+                teamSection.style.display = 'none';
+            }
+        }
+        
+        // 保留其他所有JavaScript代码
+    </script>
+</body>
+</html>
